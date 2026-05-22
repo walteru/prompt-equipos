@@ -39,15 +39,9 @@ mi-proyecto/
 
 ## Instalación
 
-### En la máquina actual
-
-Ya está instalado. El alias `prompts` está cargado en `~/.bashrc`.
-
-### En una máquina nueva
-
 ```bash
 # 1. Clonar el repo donde te resulte cómodo
-git clone <URL-del-repo> ~/prompt-equipos
+git clone git@github.com:walteru/prompt-equipos.git ~/prompt-equipos
 
 # 2. Asegurar que el script sea ejecutable
 chmod +x ~/prompt-equipos/prompts.py
