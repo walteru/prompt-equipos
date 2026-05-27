@@ -78,6 +78,24 @@ Luego, en los agentes, basta decir algo como:
 
 > *"leé `_temps/DEV.txt`"* (o `_temps/TESTING.txt` según el equipo)
 
+Uso esperado de TESTING:
+
+- En la primera pasada, si todavía no existe respuesta de DEV, TESTING debe hacer un análisis inicial independiente del requerimiento.
+- Cuando DEV entregue su respuesta o implementación, TESTING debe contrastarla contra esa línea base y marcar coincidencias, omisiones, riesgos y bloqueantes reales.
+
+Flujo recomendado de trabajo:
+
+1. Ejecutar `prompts`, escribir el requerimiento y guardar.
+2. Pasar en paralelo los prompts generados:
+   - A DEV: `leé _temps/DEV.txt`
+   - A TESTING: `leé _temps/TESTING.txt`
+3. Esperar ambos outputs:
+   - DEV entrega análisis inicial, criterios de aceptación, estrategia de validación y plan de implementación. En esta primera pasada no debe modificar código.
+   - TESTING entrega su análisis inicial independiente como línea base.
+4. Pasar el output de DEV a TESTING para que lo contraste contra su línea base.
+5. Con el contraste de TESTING, pedir explícitamente a DEV que implemente o corrija los bloqueantes reales del requerimiento actual.
+6. Si TESTING solo detecta mejoras opcionales, riesgos no bloqueantes o temas fuera de alcance, decidir si se implementa el plan de DEV, se cierra la iteración de análisis o se abre un requerimiento nuevo.
+
 ### Opciones
 
 | Flag | Uso |
