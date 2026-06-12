@@ -93,6 +93,11 @@ def parse_template(template_path: Path) -> dict[str, str]:
     return sections
 
 
+def clean_requirement(contenido: str) -> str:
+    lineas_utiles = [ln for ln in contenido.splitlines() if not ln.lstrip().startswith("#")]
+    return "\n".join(lineas_utiles).strip()
+
+
 def read_requirement_via_editor(temps_dir: Path) -> str:
     editor = os.environ.get("EDITOR") or os.environ.get("VISUAL") or "vim"
     req_path = temps_dir / "REQUERIMIENTO.txt"
@@ -105,8 +110,7 @@ def read_requirement_via_editor(temps_dir: Path) -> str:
         sys.exit(f"[prompts] El editor terminó con código {result.returncode}. Cancelado.")
 
     contenido = req_path.read_text(encoding="utf-8")
-    lineas_utiles = [ln for ln in contenido.splitlines() if not ln.lstrip().startswith("#")]
-    requerimiento = "\n".join(lineas_utiles).strip()
+    requerimiento = clean_requirement(contenido)
     if not requerimiento:
         sys.exit("[prompts] El requerimiento quedó vacío. Cancelado.")
     return requerimiento
@@ -127,6 +131,12 @@ def main() -> None:
         default=DEFAULT_TEMPLATE,
         help=f"Plantilla a usar (default: {DEFAULT_TEMPLATE}).",
     )
+    parser.add_argument(
+        "-r", "--requerimiento", "--archivo",
+        type=Path,
+        dest="requerimiento",
+        help="Archivo desde el cual leer el requerimiento (modo no interactivo).",
+    )
     args = parser.parse_args()
 
     cwd = Path.cwd()
@@ -139,7 +149,25 @@ def main() -> None:
     if creado_temps:
         print(f"[prompts] _temps/ no existía en {cwd}, lo creé.")
 
-    requerimiento = read_requirement_via_editor(temps_dir)
+    if args.requerimiento:
+        req_file = Path(args.requerimiento)
+        if not req_file.is_file():
+            sys.exit(f"[prompts] El archivo de requerimiento {req_file} no existe o no es un archivo.")
+        try:
+            contenido = req_file.read_text(encoding="utf-8")
+        except Exception as e:
+            sys.exit(f"[prompts] Error al leer el archivo {req_file}: {e}")
+
+        requerimiento = clean_requirement(contenido)
+        if not requerimiento:
+            sys.exit("[prompts] El requerimiento está vacío o contiene solo comentarios. Cancelado.")
+
+        try:
+            (temps_dir / "REQUERIMIENTO.txt").write_text(contenido, encoding="utf-8")
+        except Exception as e:
+            print(f"[prompts] Advertencia: No se pudo guardar la caché del requerimiento: {e}")
+    else:
+        requerimiento = read_requirement_via_editor(temps_dir)
 
     salidas = {
         "TESTING.txt": render(sections["TESTING"], proyecto, requerimiento),

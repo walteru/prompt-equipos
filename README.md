@@ -102,12 +102,14 @@ Flujo recomendado de trabajo:
 |------|-----|
 | `--proyecto <nombre>` | Forzar el nombre del proyecto. Útil si hay varios `context_inicial_*.txt` en el directorio. |
 | `--plantilla <ruta>`  | Usar otra plantilla en vez de `inicial.txt` del repo. |
+| `-r`, `--requerimiento`, `--archivo` | Leer el requerimiento desde un archivo local (modo no interactivo, evita abrir el editor). |
 
 Ejemplos:
 
 ```bash
 prompts --proyecto chatbot
 prompts --plantilla /ruta/a/otra-plantilla.txt
+prompts --requerimiento mis_sprints/sprint1.txt
 ```
 
 ---
@@ -129,6 +131,30 @@ DEV
 ```
 
 Los separadores son líneas con 20+ guiones. Los headers `TESTING` y `DEV` se detectan entre separadores. Podés editar libremente el contenido de cada bloque sin tocar el script — los reemplazos siguen funcionando mientras se mantengan los placeholders `context_inicial_AAAA.txt` y `<REQUERIMIENTO>`.
+
+---
+
+## Principios de trabajo de los equipos
+
+La plantilla incorpora cuatro ideas para reducir errores habituales de los
+agentes de código:
+
+- **Pensar antes de modificar:** explicitar supuestos, dudas y tradeoffs.
+- **Simplicidad primero:** resolver el pedido sin abstracciones o flexibilidad
+  especulativa.
+- **Cambios quirúrgicos:** tocar únicamente lo necesario y respetar el estilo
+  existente.
+- **Ejecución orientada a objetivos:** definir criterios verificables y aportar
+  evidencia concreta antes de cerrar.
+
+DEV aplica estos principios al planificar e implementar. TESTING los usa como
+criterios de revisión para detectar supuestos silenciosos, complejidad
+innecesaria, cambios fuera de alcance y cierres sin validación suficiente.
+
+Estas ideas están inspiradas en
+[`multica-ai/andrej-karpathy-skills`](https://github.com/multica-ai/andrej-karpathy-skills),
+publicado bajo licencia MIT. La redacción y adaptación al flujo DEV/TESTING de
+este proyecto son propias.
 
 ---
 

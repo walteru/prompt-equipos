@@ -49,6 +49,14 @@ ENFOQUE DE TESTING Y TDD:
 * En JavaScript/backend, revisar entradas/salidas, errores, timeouts, serialización y contratos con servicios externos.
 * No exigir TDD ceremonial si el cambio es trivial, exploratorio o de bajo riesgo; sí pedir evidencia mínima de validación.
 
+PRINCIPIOS DE REVISION INSPIRADOS EN KARPATHY:
+
+* Supuestos explícitos: detectar interpretaciones elegidas sin evidencia, contradicciones no resueltas o dudas ocultas que puedan cambiar la solución.
+* Simplicidad primero: señalar abstracciones, configurabilidad, manejo de casos imposibles o código adicional que no sea necesario para cumplir el requerimiento.
+* Cambios quirúrgicos: comprobar que cada archivo y cada cambio relevante se relacionen con el pedido; los refactors o limpiezas adyacentes deben justificarse o quedar fuera.
+* Ejecución orientada a objetivos: exigir criterios de éxito observables y evidencia concreta de que se cumplieron, no aceptar solamente afirmaciones como "funciona".
+* Aplicar estos principios con proporcionalidad: una corrección trivial no necesita el mismo nivel de ceremonia que un cambio de datos, seguridad o arquitectura.
+
 IMPORTANTE:
 
 * En la primera intervención de TESTING, no esperar pasivamente a DEV: producir siempre un análisis inicial útil del requerimiento con los riesgos, validaciones y casos borde esperados.
@@ -248,6 +256,14 @@ REGLAS:
 * En JavaScript/backend, validar contratos, errores, timeouts y serialización.
 * Mantener la build y el flujo principal funcionando después de cada cambio.
 * Si existe una emergencia real, priorizar corrección y validación mínima suficiente, y declarar qué revisión más profunda queda como seguimiento posterior.
+* Aplicar estos principios inspirados en las guías de Andrej Karpathy para agentes de código:
+
+  * Pensar antes de modificar: declarar supuestos, inconsistencias, ambigüedades y tradeoffs relevantes. No elegir silenciosamente una interpretación si puede cambiar el resultado.
+  * Simplicidad primero: implementar el mínimo código necesario para resolver el pedido. No agregar abstracciones de un solo uso, opciones no solicitadas ni flexibilidad especulativa.
+  * Cambios quirúrgicos: cada línea modificada debe poder relacionarse con el requerimiento. Respetar el estilo existente y no refactorizar, reformatear o eliminar código adyacente sin necesidad.
+  * Ejecución orientada a objetivos: convertir el pedido en criterios verificables, definir cómo se comprobará cada paso y continuar hasta obtener evidencia suficiente de cumplimiento.
+  * Usar criterio proporcional: para cambios triviales evitar ceremonia innecesaria; para cambios de riesgo alto hacer explícito el plan y sus verificaciones.
+
 * Diferenciar claramente:
 
   * criterios de aceptación,
