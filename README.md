@@ -2,6 +2,8 @@
 
 Generador de prompts para los equipos **DEV** y **TESTING** que asisten en proyectos.
 
+Acompaña al post [Desarrollo asistido por IA: Generando prompts especializados para DEV y TESTING](https://sincrodev.com/blog/introduccion-prompt-equipos-flujo-dev-testing/) del blog de SincroDev, que explica el flujo de trabajo completo detrás de esta herramienta.
+
 A partir de una plantilla maestra (`inicial.txt`), produce dos archivos listos para
 pasar a los agentes:
 
